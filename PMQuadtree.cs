@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -411,25 +411,17 @@ namespace PMQuadtree
     }
 
     /// <summary>
-    /// General Point object which may hold a single referece to additional data
+    /// A 2D point
     /// </summary>
-    public class Point2D<T> : HasPosition
+    public class Point2D : HasPosition
     {
         public readonly float x;
         public readonly float y;
-        public T data;
 
         public Point2D(float x, float y)
         {
             this.x = x;
             this.y = y;
-        }
-
-        public Point2D(float x, float y, T data)
-        {
-            this.x = x;
-            this.y = y;
-            this.data = data;
         }
 
         float HasPosition.GetPositionX()
@@ -452,6 +444,19 @@ namespace PMQuadtree
         float HasPosition.DistanceTo(float x, float y)
         {
             return Mathf.Sqrt(Mathf.Pow(this.x - x, 2f) + Mathf.Pow(this.y - y, 2f));
+        }
+    }
+
+    /// <summary>
+    /// A 2D point which holds a referece
+    /// </summary>
+    public class Point2D<T> : Point2D
+    {
+        public T data;
+
+        public Point2D(float x, float y, T data) : base(x, y)
+        {
+            this.data = data;
         }
     }
 
